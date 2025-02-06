@@ -1,36 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100vw;
+  height: auto;
+  margin: 0;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  justify-content: center;
+  position: relative;
 }
 
 .card {
@@ -39,4 +13,75 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.app-bar {
+  width: 100% !important;
+  height: auto;
+  position: fixed !important;
+  top: 0;
+  padding: 1% 1% 1% 1% !important;
+  display: flex;
+}
+
+.btn-create {
+  width: 70px;
+  height: 45px;
+  margin-left: 3% !important;
+  border-radius: 15px !important;
+  font-size: 40px !important;
+}
+
+.container-product {
+  margin-top: 100px;
+}
+
+.container-grid {
+  width: 100vw !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center !important;
+}
+
+.product {
+  height: 450px;
+  width: 250px;
+  position: relative;
+  border: solid rgba(0, 0, 0, 0.153) 2px;
+  text-align: left;
+}
+
+.btn-group {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 0 !important;
+  border: solid rgba(0, 0, 0, 0.153) 2px;
+}
+
+.btn-left {
+  border-top-left-radius: 0px !important; 
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  width: 50%;
+}
+
+.btn-right {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  width: 50%;
+}
+
+.description {
+  height: auto;
+  width: auto;
+}
+
+.loading-container {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
