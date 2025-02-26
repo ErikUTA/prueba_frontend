@@ -1,6 +1,6 @@
 import React, { useState } from "react"; 
 import { TextField, Button, Checkbox, FormGroup, FormControlLabel, Container, Typography, Box } from "@mui/material";
-import { getProducts, updateProduct } from '../../redux/services/productService';
+import { getProducts, updateProduct } from '../../../redux/services/productService';
 import { useSelector, useDispatch } from "react-redux";
 import { toast, Toaster } from "sonner";
 import { useNavigate } from "react-router-dom";

@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { getProducts } from './redux/services/productService';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Home from './components/home/Home';
-import Details from './components/product/Details';
-import UpdateProduct from './components/product/UpdateProduct';
-import CreateProduct from './components/product/CreateProduct';
-import NavBar from './components/main/NavBar';
+import Home from './components/web/home/Home';
+import Details from './components/web/product/Details';
+import UpdateProduct from './components/web/product/UpdateProduct';
+import CreateProduct from './components/web/product/CreateProduct';
+import NavBar from './components/web/main/NavBar';
 
 function App() {
   const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setProduct } from '../../redux/productSlice';
+import { setProduct } from '../../../redux/productSlice';
 import { Button, ButtonGroup, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { deleteProduct, getProducts } from '../../redux/services/productService';
+import { deleteProduct, getProducts } from '../../../redux/services/productService';
 import { toast, Toaster } from "sonner";
 import Swal from 'sweetalert2';
 
