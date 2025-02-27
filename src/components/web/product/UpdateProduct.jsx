@@ -11,6 +11,7 @@ export default function UpdateProduct() {
     const categories = useSelector((state) => state.categories.categories);
     const productCategories = useSelector((state) => state.product.product.categories);
     const product = useSelector((state) => state.product.product);
+    const token = useSelector((state) => state.auth.token);
     const [form, setForm] = useState({
         title: product.title,
         price: product.price,
@@ -40,15 +41,15 @@ export default function UpdateProduct() {
         e.preventDefault();
         const loading = toast.loading("Enviando...");
         try { 
-            await updateProduct(form, product.id);
+            await updateProduct(form, product.id, token);
             toast.dismiss(loading);
-            getProducts(dispatch);
+            getProducts(dispatch, token);
             toast.success("Se ha actualizado correctamente el producto.", {
                 onDismiss: () => {
-                    navigate('/')
+                    navigate('/home')
                 },
                 onAutoClose: () => {
-                    navigate('/')
+                    navigate('/home')
                 },
             });
         } catch (error) { 

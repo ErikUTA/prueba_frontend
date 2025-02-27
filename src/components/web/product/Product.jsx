@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '../../../redux/productSlice';
 import { Button, ButtonGroup, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ function Product({ data }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState();
+    const token = useSelector((state) => state.auth.token);
 
     const setProductData = (url) => {
         dispatch(setProduct(data));
@@ -34,10 +35,10 @@ function Product({ data }) {
 
     const removeProduct = async () => {
         try {
-            await deleteProduct(data.id);
+            await deleteProduct(data.id, token);
             toast.dismiss(loading);
             toast.success("Se ha eliminado el producto");
-            getProducts(dispatch);
+            getProducts(dispatch, token);
         } catch(error) {
             toast.dismiss(loading);
             toast.success("Error al eliminar el producto");
