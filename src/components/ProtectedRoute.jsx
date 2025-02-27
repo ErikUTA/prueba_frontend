@@ -6,9 +6,9 @@ import { getProducts } from '../redux/services/productService';
 
 const ProtectedRoutes = ({ routes }) => {
     const dispatch = useDispatch();
-    const token = useSelector((state) => state.auth.token);
+    const token = sessionStorage.getItem('token');
 
-    if(token == null) {
+    if(!token) {
         return <Navigate to="/login" />;
     }
 

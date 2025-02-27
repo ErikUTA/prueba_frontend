@@ -1,16 +1,13 @@
 import React from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setLogout } from '../../../redux/authSlice';
 
 export default function NavBar() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const location = useLocation();
 
     const logout = () => {
-        dispatch(setLogout());
+        sessionStorage.removeItem('token');
         navigate('/login');
     }
 

@@ -9,7 +9,6 @@ export default function CreateProduct() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const categories = useSelector((state) => state.categories.categories);
-    const token = useSelector((state) => state.auth.token);
     const [formData, setFormData] = useState({ 
         title: "", 
         price: "", 
@@ -35,9 +34,9 @@ export default function CreateProduct() {
         e.preventDefault(); 
         const loading = toast.loading("Enviando...");
         try { 
-            await createProduct(formData, token);
+            await createProduct(formData);
             toast.dismiss(loading);
-            getProducts(dispatch, token);
+            getProducts(dispatch);
             toast.success("Se ha creado correctamente el producto.", {
                 onDismiss: () => {
                     navigate('/home')

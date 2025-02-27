@@ -35,10 +35,10 @@ function Product({ data }) {
 
     const removeProduct = async () => {
         try {
-            await deleteProduct(data.id, token);
+            await deleteProduct(data.id);
             toast.dismiss(loading);
             toast.success("Se ha eliminado el producto");
-            getProducts(dispatch, token);
+            getProducts(dispatch);
         } catch(error) {
             toast.dismiss(loading);
             toast.success("Error al eliminar el producto");
