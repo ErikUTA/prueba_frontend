@@ -1,20 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { getProducts, users } from '../redux/services/productService';
 import NavBar from './web/main/NavBar';
-import { getProducts } from '../redux/services/productService';
+import axios from '../utils/axios';
 
 const ProtectedRoutes = ({ routes }) => {
-    const dispatch = useDispatch();
-    const token = sessionStorage.getItem('token');
+    const [isAuthenticated, setiIsAuthenticated] = useState(null);
 
-    if(!token) {
-        return <Navigate to="/login" />;
+    const validate = async () => {
+        try {
+            await users(); 
+            setiIsAuthenticated(true);
+        } catch(error) {
+            setiIsAuthenticated(false);
+        }
     }
 
     useEffect(() => {
-        getProducts(dispatch);
-    }, [dispatch]);
+        validate();
+    }, []);
+
+    if(!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
 
     return (
         <>
@@ -23,6 +31,7 @@ const ProtectedRoutes = ({ routes }) => {
                 {
                     routes.map((route, index) => (
                         <Route 
+
                             key={index}
                             path={route.path}
                             element={route.element}

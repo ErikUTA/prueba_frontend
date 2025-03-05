@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/services/productService";
+import { csrf, login } from "../../redux/services/productService";
 import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { toast, Toaster } from "sonner";
@@ -22,6 +22,7 @@ export default function Login() {
         e.preventDefault(); 
             const loading = toast.loading("Cargando...");
             try { 
+                await csrf();
                 await login(formData, dispatch);
                 toast.dismiss(loading);
                 navigate('/home');
