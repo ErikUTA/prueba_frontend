@@ -11,7 +11,7 @@ function Product({ data }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState();
-    const token = useSelector((state) => state.auth.token);
+    const [disable, setDisable] = useState(false);
 
     const setProductData = (url) => {
         dispatch(setProduct(data));
@@ -35,13 +35,15 @@ function Product({ data }) {
 
     const removeProduct = async () => {
         try {
+            setDisable(true);
             await deleteProduct(data.id);
             toast.dismiss(loading);
+            await getProducts(dispatch);
             toast.success("Se ha eliminado el producto");
-            getProducts(dispatch);
         } catch(error) {
             toast.dismiss(loading);
             toast.success("Error al eliminar el producto");
+            setDisable(false);
         }
     }
 
@@ -51,7 +53,7 @@ function Product({ data }) {
             <ButtonGroup variant="contained" aria-label="Basic button group">
                 <Button onClick={() => setProductData('/about')}>Ver</Button>
                 <Button onClick={() => setProductData('/update')}>Editar</Button>
-                <Button onClick={() => showModal()}>Eliminar</Button>
+                <Button onClick={() => showModal()} disabled={disable}>Eliminar</Button>
             </ButtonGroup>
             <Toaster />
         </Card>

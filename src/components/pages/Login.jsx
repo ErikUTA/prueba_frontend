@@ -1,17 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { csrf, login } from "../../redux/services/productService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { toast, Toaster } from "sonner";
 
 export default function Login() {
+    const flag = localStorage.getItem('login');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: null,
         password: null
     });
+
+    useEffect(() => {
+        if(flag) {
+            navigate('/home');
+        }
+    }, [flag]);
 
     const handleChange = (e) => {
         const { name, value } = e.target; 
@@ -25,6 +32,7 @@ export default function Login() {
                 await csrf();
                 await login(formData, dispatch);
                 toast.dismiss(loading);
+                localStorage.setItem('login', true);
                 navigate('/home');
             } catch (error) { 
                 toast.dismiss(loading);

@@ -9,6 +9,7 @@ export default function CreateProduct() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const categories = useSelector((state) => state.categories.categories);
+    const [disable, setDisable] = useState(false);
     const [formData, setFormData] = useState({ 
         title: "", 
         price: "", 
@@ -34,9 +35,10 @@ export default function CreateProduct() {
         e.preventDefault(); 
         const loading = toast.loading("Enviando...");
         try { 
+            setDisable(true);
             await createProduct(formData);
             toast.dismiss(loading);
-            getProducts(dispatch);
+            await getProducts(dispatch);
             toast.success("Se ha creado correctamente el producto.", {
                 onDismiss: () => {
                     navigate('/home')
@@ -48,6 +50,7 @@ export default function CreateProduct() {
         } catch (error) { 
             toast.dismiss(loading);
             toast.error("Error al crear el producto.");
+            setDisable(false);
         } 
     };
 
@@ -101,7 +104,7 @@ export default function CreateProduct() {
                         )) : (<div className='center circular'><CircularProgress size="3rem" /></div>)
                     } 
                 </FormGroup> 
-                <Button type="submit" variant="contained" color="primary" fullWidth>Enviar</Button> 
+                <Button type="submit" variant="contained" color="primary" disabled={disable} fullWidth>Enviar</Button> 
             </form> 
             <Toaster />
         </Box>

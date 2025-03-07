@@ -9,16 +9,17 @@ import Login from './components/pages/Login';
 
 function App() {
   const protectedRoutes = [
+    { path: '*', element: <Login /> },
     { path: '/home', element: <Home /> },
     { path: '/about', element: <Details /> },
-    { path: '/create', element: <UpdateProduct /> },
-    { path: '/update', element: <CreateProduct /> },
+    { path: '/create', element: <CreateProduct /> },
+    { path: '/update', element: <UpdateProduct /> },
   ];
 
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='*' element={<ProtectedRoutes routes={protectedRoutes} />} />
       </Routes>
     </Router>

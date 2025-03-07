@@ -11,6 +11,7 @@ export default function UpdateProduct() {
     const categories = useSelector((state) => state.categories.categories);
     const productCategories = useSelector((state) => state.product.product.categories);
     const product = useSelector((state) => state.product.product);
+    const [disable, setDisable] = useState(false);
     const [form, setForm] = useState({
         title: product.title,
         price: product.price,
@@ -40,9 +41,10 @@ export default function UpdateProduct() {
         e.preventDefault();
         const loading = toast.loading("Enviando...");
         try { 
+            setDisable(true);
             await updateProduct(form, product.id);
             toast.dismiss(loading);
-            getProducts(dispatch);
+            await getProducts(dispatch);
             toast.success("Se ha actualizado correctamente el producto.", {
                 onDismiss: () => {
                     navigate('/home')
@@ -54,6 +56,7 @@ export default function UpdateProduct() {
         } catch (error) { 
             toast.dismiss(loading);
             toast.error("Error al actualizar el producto.");
+            setDisable(false);
         } 
     };
 
@@ -110,7 +113,7 @@ export default function UpdateProduct() {
                                 ))
                             } 
                         </FormGroup> 
-                        <Button type="submit" variant="contained" color="primary" fullWidth>Enviar</Button> 
+                        <Button type="submit" variant="contained" color="primary" disabled={disable} fullWidth>Enviar</Button> 
                     </form> 
                 )
             } 

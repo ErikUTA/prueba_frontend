@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { getProducts, users } from '../redux/services/productService';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import NavBar from './web/main/NavBar';
-import axios from '../utils/axios';
+import { authUser, getProducts } from '../redux/services/productService';
+import { useDispatch } from 'react-redux';
+import { CircularProgress } from '@mui/material';
 
 const ProtectedRoutes = ({ routes }) => {
-    const [isAuthenticated, setiIsAuthenticated] = useState(null);
-
-    const validate = async () => {
-        try {
-            await users(); 
-            setiIsAuthenticated(true);
-        } catch(error) {
-            setiIsAuthenticated(false);
-        }
-    }
-
+    const dispatch = useDispatch();
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    
     useEffect(() => {
+        const validate = async () => {        
+            try {
+                await authUser();
+                setIsAuthenticated(true);
+                getProducts(dispatch);
+            } catch(error) {
+                setIsAuthenticated(false);
+            }
+        }
         validate();
     }, []);
 
-    if(!isAuthenticated) {
-        return <Navigate to="/login" />;
+    if (isAuthenticated === null) {
+        return (
+            <div className='center circular'>
+                <CircularProgress size="3rem" />
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return <Navigate to="/" />;
     }
 
     return (
@@ -31,7 +41,6 @@ const ProtectedRoutes = ({ routes }) => {
                 {
                     routes.map((route, index) => (
                         <Route 
-
                             key={index}
                             path={route.path}
                             element={route.element}
